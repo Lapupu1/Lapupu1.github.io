@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ary</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Trebuchet MS", sans-serif;
+}
+
+body{
+    height:100vh;
+    overflow:hidden;
+    background:linear-gradient(135deg, #ffd6ec, #d6f0ff);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* 🌸 TRUE CROSSFADE SYSTEM */
+.screen{
+    position:absolute;
+    inset:0;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    opacity:0;
+    transform:scale(0.96);
+
+    pointer-events:none;
+
+    transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+.screen.active{
+    opacity:1;
+    transform:scale(1);
+    pointer-events:auto;
+}
+
+/* CARD */
+.card{
+    width:340px;
+    padding:30px;
+    text-align:center;
+
+    background:rgba(255,255,255,0.25);
+    backdrop-filter:blur(12px);
+    border-radius:30px;
+    border:2px solid rgba(255,255,255,0.4);
+    box-shadow:0 10px 30px rgba(0,0,0,0.15);
+}
+
+/* IMAGE */
+.frame-img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+    border-radius:20px;
+    margin-bottom:15px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* BUTTON */
+.start-btn{
+    margin-top:15px;
+    border:none;
+    padding:12px 28px;
+    border-radius:999px;
+    cursor:pointer;
+
+    background:white;
+    color:#ff69b4;
+    font-weight:bold;
+    transition:0.3s ease;
+}
+
+.start-btn:hover{
+    transform:scale(1.08);
+    background:#ffe6f3;
+}
+
+p{
+    color:white;
+    font-weight:700;
+    text-shadow:0 2px 6px rgba(0,0,0,0.3);
+}
+
+h1{
+    color:white;
+    text-shadow:0 2px 10px rgba(0,0,0,0.4);
+}
+
+.welcome{
+    margin-top:15px;
+    color:white;
+    font-weight:800;
+}
+
+.hidden{ display:none; }
+
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" loop preload="auto">
+    <source src="https://raw.githubusercontent.com/Lapupu1/Lapupu1.github.io/7ed110d62d2cc7c278f456afa7371e0e087c2f0c/Music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- SCREEN 1 -->
+<div id="screen1" class="screen active">
+    <div class="card">
+
+        <img class="frame-img"
+        src="https://i.pinimg.com/originals/80/80/73/8080732eea968a5ec482c22f9912cf7d.gif">
+
+        <h1>✨ Hello ✨</h1>
+
+        <p>I Hope You Like It</p>
+
+        <button class="start-btn" onclick="startSite()">
+            Start
+        </button>
+
+        <div id="welcomeText" class="welcome hidden">
+            🌸 Have fun exploring! 🌸
+        </div>
+
+    </div>
+</div>
+
+<!-- SCREEN 2 -->
+<div id="screen2" class="screen">
+    <div class="card">
+
+        <img class="frame-img"
+        src="https://images.unsplash.com/photo-1518895949257-7621c3c786d7">
+
+        <h1>Dear Ary</h1>
+
+        <p>
+            I made this for you. I spent a few hours each day shaping it slowly and carefully.
+        </p>
+
+        <button class="start-btn" onclick="showScreen('screen3')">
+            Next →
+        </button>
+
+    </div>
+</div>
+
+<!-- SCREEN 3 -->
+<div id="screen3" class="screen">
+    <div class="card">
+
+        <img class="frame-img"
+        src="https://images.unsplash.com/photo-1519681393784-d120267933ba">
+
+        <h1>💖 Final Page 💖</h1>
+
+        <p>You made it!</p>
+
+    </div>
+</div>
+
+<script>
+const music = document.getElementById("bgMusic");
+let timer = null;
+
+function startSite(){
+
+    document.getElementById("welcomeText").classList.remove("hidden");
+
+    music.volume = 0.4;
+    music.play().catch(()=>{});
+
+    if(timer) clearTimeout(timer);
+
+    timer = setTimeout(() => {
+        showScreen("screen2");
+    }, 10000);
+}
+
+/* 🌸 TRUE CROSSFADE SWITCH */
+function showScreen(id){
+
+    const current = document.querySelector(".screen.active");
+    const next = document.getElementById(id);
+
+    if(!current || !next) return;
+
+    // start next immediately
+    next.classList.add("active");
+
+    // fade out current at same time
+    current.classList.remove("active");
+}
+</script>
+
+</body>
+</html>
